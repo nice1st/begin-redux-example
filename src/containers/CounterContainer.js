@@ -7,7 +7,7 @@ import { bindActionCreators } from "redux";
 
 class CounterContainer extends Component {
     render() {
-        const { increment, decrement } = this.props;
+        const { decrement, increment } = this.props;
         const { number } = this.props;
 
         return (
