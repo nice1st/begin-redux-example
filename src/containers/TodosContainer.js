@@ -43,8 +43,8 @@ class TodoContainer extends Component {
 
 export default connect(
     ({ todo }) => ({
-        input: todo.get('input')
-        , todos: todo.get('todos')
+        input: todo.input
+        , todos: todo.todos
     })
     // , (dispatch) => ({ TodoActions: bindActionCreators(todoActions, dispatch) })
 )(TodoContainer);

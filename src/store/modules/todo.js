@@ -1,5 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
-import { Map, List } from 'immutable';
+import { Record, List } from 'immutable';
 
 const CHANGE_INPUT = 'todo/CHANGE_INPUT';
 const INSERT = 'todo/INSERT';
@@ -13,15 +13,21 @@ export const remove = createAction(REMOVE, id => id);
 
 let id = 0;
 
-const initialState = Map({
+const initialState = Record({
     input: ''
     , todos: List()
-});
+})();
+
+const TodoRecord = Record({
+    id: id++
+    , text: ''
+    , checked: false
+})();
 
 export default handleActions({
     [CHANGE_INPUT]: (state, { payload: value }) => state.set('input', value)
     , [INSERT]: (state, { payload: text }) => {
-        const item = Map({ id: id++, checked: false, text });
+        const item = TodoRecord({ id: id++, checked: false, text });
         return state.update('todos', todos => todos.push(item));
     }
     , [TOGGLE]: (state, { payload: id }) => {
