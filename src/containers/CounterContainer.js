@@ -2,18 +2,25 @@
 import React, { Component } from "react";
 import Counter from "components/Counter";
 import { connect } from "react-redux";
-import * as counterActions from 'store/modules/counter';
-import { bindActionCreators } from "redux";
+import { CounterActions } from 'store/actionCreators';
 
 class CounterContainer extends Component {
+    handleIncrement = () => {
+        CounterActions.increment();
+    }
+    
+    handleDecrement = () => {
+        CounterActions.decrement();
+    }
+    
     render() {
-        const { decrement, increment } = this.props;
+        const { handleIncrement, handleDecrement } = this.props;
         const { number } = this.props;
 
         return (
             <Counter 
-                onIncrement = { increment }
-                onDecrement = { decrement }
+                onIncrement = { handleIncrement }
+                onDecrement = { handleDecrement }
                 number = { number }
             />
         );
@@ -27,8 +34,8 @@ const mapStateToProps = (state) => ({
 
 // props 값으로 넣어 줄 액션 함수들을 정의해줍니다
 const mapDispatchToProps = (dispatch) => ({
-    increment: () => dispatch(counterActions.increment())
-    , decrement: () => dispatch(counterActions.decrement())
+    increment: () => dispatch(CounterActions.increment())
+    , decrement: () => dispatch(CounterActions.decrement())
 })
 
 // 컴포넌트를 리덕스와 연동 할 떄에는 connect 를 사용합니다.
@@ -37,5 +44,5 @@ const mapDispatchToProps = (dispatch) => ({
 // export default connect(mapStateToProps, mapDispatchToProps)(CounterContainer);
 export default connect(
     (state) => ({ number: state.counter.number })
-    , (dispatch) => bindActionCreators(counterActions, dispatch)
+    // , (dispatch) => bindActionCreators(counterActions, dispatch)
 )(CounterContainer);

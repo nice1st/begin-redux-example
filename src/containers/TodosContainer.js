@@ -3,28 +3,24 @@
 import React, { Component } from "react";
 import Todos from "components/Todos";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as todoActions from 'store/modules/todo';
+import { TodoActions } from 'store/actionCreators';
 
 class TodoContainer extends Component {
     handlerChange = (e) => {
-        const { TodoActions } = this.props;
         TodoActions.changeInput(e.target.value);
     }
 
     handlerInsert = () => {
-        const { input, TodoActions } = this.props;
+        const { input } = this.props;
         TodoActions.insert(input);
         TodoActions.changeInput('');
     }
 
     handlerToggle = (id) => {
-        const { TodoActions } = this.props;
         TodoActions.toggle(id);
     }
 
     handlerRemove = (id) => {
-        const { TodoActions } = this.props;
         TodoActions.remove(id);
     }
     
@@ -50,5 +46,5 @@ export default connect(
         input: todo.get('input')
         , todos: todo.get('todos')
     })
-    , (dispatch) => ({ TodoActions: bindActionCreators(todoActions, dispatch) })
+    // , (dispatch) => ({ TodoActions: bindActionCreators(todoActions, dispatch) })
 )(TodoContainer);
